@@ -1,8 +1,8 @@
 ---
-// Calendario · embed de Google Appointments para reservar una llamada
+// Calendario · CTA hacia Google Appointments para reservar una llamada
 // previa con Kevin antes del camp.
 const calendarUrl =
-  'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1MxHgQiRL7SLDguWyg-1bRVnb6S4_Qvwj8ZlH1s93TidQSCtMzHbprJsOIbh7bafTsuJ3aeXVb?gv=true';
+  'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1MxHgQiRL7SLDguWyg-1bRVnb6S4_Qvwj8ZlH1s93TidQSCtMzHbprJsOIbh7bafTsuJ3aeXVb';
 ---
 
 <section id="agenda" class="calendar">
@@ -11,23 +11,31 @@ const calendarUrl =
       <span class="eyebrow">¿Dudas antes de reservar?</span>
       <h2>Agenda una llamada con Kevin.</h2>
       <p class="muted">
-        15 minutos para resolver tus dudas sobre el camp, tu nivel y si encajas. Sin compromiso.
+        15 minutos por Google Meet para resolver tus dudas sobre el camp, tu nivel y si encajas. Sin compromiso.
       </p>
     </header>
 
-    <div class="calendar__frame">
-      <iframe
-        src={calendarUrl}
-        title="Agenda una llamada con Kevin"
-        loading="lazy"
-        frameborder="0"
-      ></iframe>
+    <div class="calendar__cta">
+      <a
+        class="btn btn-primary calendar__btn"
+        href={calendarUrl}
+        target="_blank"
+        rel="noopener"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path
+            d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Reservar llamada de 15 min
+      </a>
+      <p class="calendar__hint muted">Se abre Google Calendar en una pestaña nueva.</p>
     </div>
-
-    <p class="calendar__fallback muted">
-      ¿No carga el calendario?
-      <a href={calendarUrl} target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.
-    </p>
   </div>
 </section>
 
@@ -45,35 +53,23 @@ const calendarUrl =
     margin-bottom: var(--space-3);
   }
 
-  .calendar__frame {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    height: 720px;
-    max-width: 960px;
-    margin-inline: auto;
+  .calendar__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
   }
 
-  .calendar__frame iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
+  .calendar__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    padding: 1rem 1.8rem;
   }
 
-  .calendar__fallback {
-    text-align: center;
-    margin-top: var(--space-4);
-    font-size: 0.9rem;
-  }
-  .calendar__fallback a {
-    color: var(--color-accent);
-  }
-
-  @media (max-width: 640px) {
-    .calendar__frame {
-      height: 640px;
-    }
+  .calendar__hint {
+    font-size: 0.85rem;
+    margin: 0;
   }
 </style>

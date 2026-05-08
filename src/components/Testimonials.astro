@@ -96,8 +96,17 @@ import { testimonialShorts as shorts } from '../data/testimonials';
 
   function openModal(id: string) {
     if (!modal || !frame) return;
+    const params = new URLSearchParams({
+      autoplay: '1',
+      controls: '1',
+      modestbranding: '1',
+      rel: '0',
+      playsinline: '1',
+      loop: '1',
+      playlist: id,
+    });
     frame.innerHTML = `<iframe
-      src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1"
+      src="https://www.youtube-nocookie.com/embed/${id}?${params}"
       title="Testimonio"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
