@@ -1,0 +1,183 @@
+---
+// Levels · "¿Es para ti?" + "¿Nivel?" del original.
+// TODO C-01: Kevin debe confirmar si son 2 grupos en práctica o 3.
+// Hasta que decida, mantengo los 3 perfiles para autoidentificación.
+const levels = [
+  {
+    n: 1,
+    name: 'El Rider con Base',
+    pitch: 'No eres nuevo, pero te falta el «clic».',
+    body:
+      'Sales por senderos, pero cuando la cosa se pone «sucia» (raíces, piedras o un escalón de más de 10 cm), tus dedos se clavan en el freno y te pones rígido como un palo. Tu bici es mejor que tu técnica y lo sabes. Aquí te enseñamos a dejar de bajarte de la bici en cada dificultad.',
+  },
+  {
+    n: 2,
+    name: 'El Intermedio (Buscando el Flow)',
+    pitch: 'Bajas por casi todos sitios, pero «sobreviviendo».',
+    body:
+      'Tienes fondo físico, pero acabas las rutas con los brazos destrozados de la tensión. No pilotas: eres un pasajero que espera que la suspensión lo arregle todo. Te falta esa fluidez para que la bici no se detenga en cada curva cerrada o zona técnica.',
+  },
+  {
+    n: 3,
+    name: 'El Intermedio-Alto (Domando el Terreno)',
+    pitch: 'Ya vas rápido, pero quieres precisión de cirujano.',
+    body:
+      'Saltas un poco, haces algún drop, pero sientes que te has estancado. Quieres aprender a leer el terreno como un pro, a ganar inercia donde otros frenan y a despegarte del suelo con la seguridad de que vas a aterrizar donde tú quieres.',
+  },
+];
+---
+
+<section id="niveles" class="levels">
+  <div class="container">
+    <header class="levels__head">
+      <span class="eyebrow">¿Es para ti?</span>
+      <h2>Identifica tu nivel y te ubicamos.</h2>
+    </header>
+
+    <div class="levels__qual">
+      <div class="qual qual--yes">
+        <span class="qual__tag">SÍ es para ti</span>
+        <p>
+          Si tienes una <strong>e-bike</strong> o una <strong>enduro</strong> y
+          sientes que te has estancado. Si quieres que el lunes después del camp
+          tus amigos te pregunten qué demonios te ha pasado para bajar así.
+        </p>
+      </div>
+      <div class="qual qual--no">
+        <span class="qual__tag">NO es para ti</span>
+        <p>
+          Si nunca has pisado el monte, o si eres un profesional buscando décimas
+          de segundo. Aquí venimos a ganar confianza y seguridad técnica.
+        </p>
+      </div>
+    </div>
+
+    <div class="levels__grid">
+      {levels.map((level) => (
+        <article class="level-card">
+          <span class="level-card__num">Nivel {level.n}</span>
+          <h3>{level.name}</h3>
+          <p class="level-card__pitch">{level.pitch}</p>
+          <p class="level-card__body muted">{level.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="levels__footnote">
+      <strong>Nota:</strong> describimos 3 perfiles para que te ubiques. En el
+      camp os agrupamos en función del grupo que se forme — habitualmente 2
+      grupos (Kevin y Carlos). Si tienes dudas con tu nivel, escríbeme y lo
+      vemos juntos.
+    </p>
+  </div>
+</section>
+
+<style>
+  .levels__head {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+  .levels__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .levels__qual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-16);
+  }
+
+  .qual {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+  .qual--yes {
+    border-color: rgba(74, 222, 42, 0.3);
+    background: rgba(74, 222, 42, 0.04);
+  }
+  .qual--no {
+    border-color: rgba(220, 80, 80, 0.25);
+    background: rgba(220, 80, 80, 0.04);
+  }
+
+  .qual__tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+  .qual--yes .qual__tag { color: var(--color-accent); }
+  .qual--no .qual__tag { color: #f87171; }
+
+  .qual p {
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+  .qual strong { color: var(--color-fg); }
+
+  .levels__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .level-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .level-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .level-card__num {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+  }
+
+  .level-card h3 {
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+
+  .level-card__pitch {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 1.05rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .level-card__body {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .levels__footnote {
+    margin-top: var(--space-12);
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    color: var(--color-fg-muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+</style>

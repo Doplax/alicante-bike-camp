@@ -1,0 +1,77 @@
+---
+// About · "Sobre mí" del original. Copy mantenido casi literal.
+// La autoridad fuerte (3º del mundo BMX) ya está duplicada en el Hero (mejora O-02).
+---
+
+<section id="sobre-mi" class="about">
+  <div class="container about__inner">
+    <div class="about__text">
+      <span class="eyebrow">Sobre mí</span>
+      <h2>Soy Kevin Sánchez.</h2>
+      <p>
+        Llevo más de <strong>16 años enseñando técnica de MTB</strong> y fui
+        <strong>tercero del mundo en BMX en 2015</strong>. Este evento me hace
+        especial ilusión porque este bikepark es parte de mi infancia: iba cada
+        verano con mi padre. Ahora vuelvo como entrenador y me encantaría
+        compartirlo contigo.
+      </p>
+
+      <h3 class="about__sub">¿Qué bici necesitas?</h3>
+      <p class="muted">
+        Bici de XC doble, enduro (muscular o eléctrica). Si no tienes bici, te
+        ayudo a alquilar una allí a buen precio. Escríbeme y lo gestionamos juntos.
+      </p>
+    </div>
+
+    <div class="about__photo" aria-hidden="true">
+      <!-- Foto placeholder. TODO: sustituir por foto real de Kevin. -->
+      <div class="about__photo-frame"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .about__text .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .about__text h2 {
+    color: var(--color-fg);
+    margin-bottom: var(--space-6);
+  }
+
+  .about__sub {
+    color: var(--color-accent);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    font-size: 1.3rem;
+  }
+
+  .about__photo-frame {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, rgba(74, 222, 42, 0.12), rgba(0, 0, 0, 0.15)),
+      url('https://escuelakesape.com/wp-content/uploads/2024/10/Red-Bull.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 768px) {
+    .about__inner {
+      grid-template-columns: 1fr;
+    }
+    .about__photo-frame {
+      max-width: 360px;
+      margin-inline: auto;
+    }
+  }
+</style>

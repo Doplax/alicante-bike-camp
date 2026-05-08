@@ -1,0 +1,93 @@
+---
+// Hero · primer fold con autoridad de Kevin (3º mundo BMX) arriba (mejora O-02)
+// y CTA único (mejora I-01). Imagen de fondo placeholder hasta tener foto final.
+---
+
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <span class="eyebrow">Kevin Sánchez · 3º del mundo BMX 2015</span>
+
+    <h1>
+      Deja de sobrevivir en bajadas.
+      <span class="hero__accent">Empieza a pilotar.</span>
+    </h1>
+
+    <p class="hero__lead">
+      3 días en los mejores spots de Alicante. Reseteamos tu técnica con el
+      <strong>Método Kesape</strong> para que dejes de ser pasajero de tu propia bici.
+    </p>
+
+    <div class="hero__cta">
+      <a class="btn btn-primary" href="#fechas">Reserva tu plaza</a>
+      <a class="btn btn-ghost" href="#que-es">Cómo funciona</a>
+    </div>
+
+    <p class="hero__meta muted">
+      Mayo · Julio · Septiembre 2026 — 3 ediciones, plazas limitadas.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-block: var(--space-24);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      url('https://escuelakesape.com/wp-content/uploads/2025/03/MG_9755Seros.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.85);
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.95) 100%),
+      linear-gradient(90deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.3) 60%);
+  }
+
+  .hero__inner {
+    position: relative;
+    max-width: 760px;
+  }
+
+  .hero__inner h1 {
+    margin-block: var(--space-6);
+  }
+
+  .hero__accent {
+    color: var(--color-accent);
+    display: block;
+  }
+
+  .hero__lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: var(--color-fg-muted);
+    max-width: 560px;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero__meta {
+    font-size: 0.9rem;
+  }
+</style>

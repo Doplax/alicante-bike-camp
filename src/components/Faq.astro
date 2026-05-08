@@ -1,0 +1,137 @@
+---
+// FAQ · 3 preguntas del original con T-04 corregido.
+// La pregunta "¿Sirve para cualquier nivel?" se reformula para evitar contradecir
+// la sección Levels, en línea con la nota al pie de Levels.astro.
+const faqs = [
+  {
+    q: '¿Sirve para cualquier nivel?',
+    a:
+      'No es para todos los niveles, pero sí para la mayoría. Trabajaremos en grupos según se forme la convocatoria (habitualmente 2 grupos: Kevin y Carlos como monitores, turnándonos). Si tienes dudas con tu nivel, escríbeme y lo vemos juntos.',
+  },
+  {
+    q: '¿Y si nunca he ido a un bikepark?',
+    a:
+      'Perfecto, esta es la mejor ocasión: yo lo conozco a fondo y te guiaré en todo momento. Descubrirás uno de los mejores bikeparks de Europa.',
+  },
+  {
+    q: '¿Puedo ir solo/a?',
+    a:
+      '¡Claro! La mayoría de riders vienen solos. El ambiente de grupo es top y acabarás haciendo amigos para futuras rutas. Si vienes acompañado tenéis descuento de pareja (ver bloque de precios arriba).',
+  },
+];
+---
+
+<section id="faq" class="faq">
+  <div class="container container-narrow">
+    <header class="faq__head">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Lo que más nos preguntan.</h2>
+    </header>
+
+    <div class="faq__list">
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-item__q">{faq.q}</summary>
+          <div class="faq-item__a">
+            <p>{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__head {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+  .faq__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq-item {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .faq-item:hover {
+    border-color: var(--color-border-strong);
+  }
+  .faq-item[open] {
+    border-color: rgba(74, 222, 42, 0.35);
+  }
+
+  .faq-item__q {
+    list-style: none;
+    cursor: pointer;
+    padding: var(--space-4) var(--space-6);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-fg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    transition: color 0.2s ease;
+  }
+  .faq-item[open] .faq-item__q {
+    color: var(--color-accent);
+  }
+  .faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item__q::after {
+    content: '+';
+    color: var(--color-accent);
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .faq-item[open] .faq-item__q::after {
+    transform: rotate(45deg);
+  }
+
+  /* Animación moderna del contenido del <details>.
+     Necesita interpolate-size: allow-keywords + ::details-content
+     (Chrome 131+, Safari 18.4+). En navegadores sin soporte el
+     desplegable funciona igual, solo sin transición. */
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease,
+      content-visibility 0.4s allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+  @starting-style {
+    .faq-item[open]::details-content {
+      block-size: 0;
+      opacity: 0;
+    }
+  }
+
+  .faq-item__a {
+    padding: 0 var(--space-6) var(--space-6);
+    color: var(--color-fg-muted);
+    font-size: 0.98rem;
+  }
+  .faq-item__a p {
+    margin: 0;
+  }
+</style>

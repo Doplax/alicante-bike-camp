@@ -1,0 +1,251 @@
+---
+// Pricing · placeholder mientras Kevin confirma C-03.
+// La estructura ya es la propuesta del audit (comparador + descuentos al final).
+// Los importes y reglas son los del original; cuando Kevin responda las 4 preguntas
+// del audit ajustamos importes y eliminamos los TODO.
+const features = [
+  { label: 'Formación técnica completa los 3 días', basic: true, full: true },
+  { label: 'Entrada Bikepark sábado y domingo', basic: true, full: true },
+  { label: 'Pack regalo exclusivo (valor 60€)', basic: true, full: true },
+  { label: 'Alojamiento en hotel cercano', basic: false, full: true },
+  { label: 'Pensión completa (vie tarde → dom tarde)', basic: false, full: true },
+];
+---
+
+<section id="precios" class="pricing">
+  <div class="container">
+    <header class="pricing__head">
+      <span class="eyebrow">Precios</span>
+      <h2>Elige tu plan.</h2>
+    </header>
+
+    <div class="pricing__grid">
+      <article class="plan">
+        <h3 class="plan__title">Solo Camp</h3>
+        <p class="plan__price">
+          <span class="plan__price-amount">375€</span>
+          <span class="plan__price-unit muted">/ persona</span>
+        </p>
+        <p class="plan__desc muted">Para riders locales con alojamiento propio.</p>
+        <ul class="plan__features">
+          {features.map((f) => (
+            <li class={f.basic ? 'plan__feature' : 'plan__feature plan__feature--off'}>
+              <span class="plan__check">{f.basic ? '✓' : '—'}</span>
+              {f.label}
+            </li>
+          ))}
+        </ul>
+        <a href="#reservar" class="btn btn-ghost plan__cta">Reservar Solo Camp</a>
+      </article>
+
+      <article class="plan plan--featured">
+        <span class="plan__badge">Más popular</span>
+        <h3 class="plan__title">Todo Incluido</h3>
+        <p class="plan__price">
+          <span class="plan__price-amount">690€</span>
+          <span class="plan__price-unit muted">/ persona</span>
+        </p>
+        <p class="plan__desc muted">Llegas con la bici. Del resto nos ocupamos nosotros.</p>
+        <ul class="plan__features">
+          {features.map((f) => (
+            <li class="plan__feature">
+              <span class="plan__check">{f.full ? '✓' : '—'}</span>
+              {f.label}
+            </li>
+          ))}
+        </ul>
+        <a href="#reservar" class="btn btn-primary plan__cta">Reservar Todo Incluido</a>
+      </article>
+    </div>
+
+    <div class="pricing__discounts">
+      <h3 class="pricing__discounts-title">Descuentos acumulables</h3>
+      <ul>
+        <li>
+          <strong>Vienes con un amigo</strong> · −46€ por persona en Solo Camp ·
+          −95€ por persona en Todo Incluido
+        </li>
+        <li>
+          <strong>Reserva antes del 10 de mayo</strong> · descuento early bird
+          <em class="muted"> (importe pendiente de confirmar — TODO Kevin)</em>
+        </li>
+      </ul>
+      <p class="pricing__example">
+        Ejemplo: Todo Incluido + amigo + early bird = <strong>595€ por persona</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing__head {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+  .pricing__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-6);
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .plan {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    position: relative;
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .plan:not(.plan--featured):hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+  .plan--featured:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 0 1px var(--color-accent),
+      0 16px 48px rgba(74, 222, 42, 0.18);
+  }
+
+  .plan--featured {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent), 0 12px 40px rgba(74, 222, 42, 0.1);
+  }
+
+  .plan__badge {
+    position: absolute;
+    top: -12px;
+    right: var(--space-6);
+    background: var(--color-accent);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .plan__title {
+    color: var(--color-fg);
+    font-size: 1.6rem;
+    margin: 0;
+  }
+
+  .plan__price {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+  .plan__price-amount {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--color-accent);
+  }
+  .plan__price-unit {
+    font-size: 0.95rem;
+  }
+
+  .plan__desc {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .plan__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  .plan__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.95rem;
+    color: var(--color-fg);
+  }
+  .plan__feature--off {
+    color: var(--color-fg-subtle);
+    text-decoration: line-through;
+    text-decoration-color: var(--color-border-strong);
+  }
+
+  .plan__check {
+    color: var(--color-accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 1rem;
+  }
+  .plan__feature--off .plan__check {
+    color: var(--color-fg-subtle);
+  }
+
+  .plan__cta {
+    margin-top: var(--space-2);
+  }
+
+  .pricing__discounts {
+    max-width: 720px;
+    margin: var(--space-12) auto 0;
+    padding: var(--space-6);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .pricing__discounts-title {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+    margin: 0 0 var(--space-4);
+  }
+
+  .pricing__discounts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .pricing__discounts li {
+    color: var(--color-fg-muted);
+    font-size: 0.95rem;
+  }
+  .pricing__discounts strong {
+    color: var(--color-fg);
+  }
+
+  .pricing__example {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--color-accent);
+    margin: 0;
+    font-size: 1.05rem;
+  }
+</style>

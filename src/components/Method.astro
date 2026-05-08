@@ -1,0 +1,106 @@
+---
+// Method · "El Método de Trabajo" del original. Bloque 1 y Bloque 2.
+// Se mantiene como marco conceptual, las menciones de "cuándo ocurre"
+// se han movido a las cards de Days.astro (mejora C-02).
+---
+
+<section id="metodo" class="method">
+  <div class="container">
+    <header class="method__head">
+      <span class="eyebrow">El Método de Trabajo</span>
+      <h2>Cómo vamos a resetear tu técnica.</h2>
+      <p class="muted">
+        En los Bike Camps de Kesape no venimos a dar vueltas al monte. Venimos a
+        ejecutar un sistema de formación en dos bloques que te lleva de ser un
+        «pasajero» a ser un «piloto» real.
+      </p>
+    </header>
+
+    <div class="method__grid">
+      <article class="method-block">
+        <span class="method-block__num">Bloque 1</span>
+        <h3>Instrucción y Corrección Técnica</h3>
+        <p>
+          El núcleo duro. Aquí nos bajamos de la bici, analizamos la física de
+          cada movimiento y practicamos en zonas controladas. <strong>Te grabamos
+          en vídeo, lo vemos a cámara lenta y corregimos cada vicio</strong>
+          hasta que el gesto sale solo.
+        </p>
+      </article>
+
+      <article class="method-block">
+        <span class="method-block__num">Bloque 2</span>
+        <h3>Aplicación Narrada y «Flow» Guiado</h3>
+        <p>
+          Aquí la teoría se convierte en instinto. Los monitores nos ponemos
+          delante de ti y vamos <strong>narrando la trazada en tiempo real</strong>:
+          te cantamos por dónde entrar, dónde frenar y dónde soltar. O nos
+          ponemos detrás para ver cómo fluyes en terreno natural y darte
+          consejos directos sobre la marcha.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .method__head {
+    text-align: center;
+    margin-bottom: var(--space-16);
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .method__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+  .method__head h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .method__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .method-block {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .method-block:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .method-block__num {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+  }
+
+  .method-block h3 {
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+  }
+
+  .method-block p {
+    color: var(--color-fg-muted);
+    font-size: 1rem;
+  }
+
+  .method-block strong {
+    color: var(--color-fg);
+  }
+</style>

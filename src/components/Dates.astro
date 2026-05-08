@@ -1,0 +1,141 @@
+---
+// Dates · sustituye el párrafo confuso del hero original (mejora C-04).
+// 3 ediciones como cards con su propio estado de plazas.
+// TODO Kevin: confirmar plazas restantes reales por edición.
+const editions = [
+  {
+    id: 'mayo',
+    month: 'Mayo',
+    days: '29 · 30 · 31',
+    year: '2026',
+    note: '3 días · Sabinar + La Fenasosa + Ruta',
+    status: 'urgent',
+    statusLabel: 'Pocas plazas',
+  },
+  {
+    id: 'julio',
+    month: 'Julio',
+    days: '10 · 11 · 12',
+    year: '2026',
+    note: 'Edición especial · 2 días en La Fenasosa',
+    status: 'open',
+    statusLabel: 'Plazas disponibles',
+  },
+  {
+    id: 'septiembre',
+    month: 'Septiembre',
+    days: '18 · 19 · 20',
+    year: '2026',
+    note: '3 días · Sabinar + La Fenasosa + Ruta',
+    status: 'open',
+    statusLabel: 'Plazas disponibles',
+  },
+];
+---
+
+<section id="fechas" class="dates">
+  <div class="container">
+    <header class="dates__head">
+      <span class="eyebrow">Elige tu fecha</span>
+      <h2>3 ediciones, una sola plaza para ti.</h2>
+    </header>
+
+    <div class="dates__grid">
+      {editions.map((edition) => (
+        <article class={`date-card date-card--${edition.status}`}>
+          <span class="date-card__status">{edition.statusLabel}</span>
+          <h3 class="date-card__month">{edition.month}</h3>
+          <p class="date-card__days">{edition.days}</p>
+          <p class="date-card__year muted">{edition.year}</p>
+          <p class="date-card__note">{edition.note}</p>
+          <a class="btn btn-primary date-card__cta" href={`#reservar-${edition.id}`}>
+            Reservar
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .dates__head {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .dates__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .dates__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .date-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+    position: relative;
+  }
+  .date-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .date-card--urgent {
+    border-color: var(--color-accent);
+  }
+
+  .date-card__status {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: rgba(74, 222, 42, 0.12);
+    color: var(--color-accent);
+  }
+  .date-card--urgent .date-card__status {
+    background: var(--color-accent);
+    color: #000;
+  }
+
+  .date-card__month {
+    margin-top: var(--space-2);
+    font-size: 2.25rem;
+    color: var(--color-fg);
+  }
+
+  .date-card__days {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .date-card__year {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .date-card__note {
+    font-size: 0.95rem;
+    color: var(--color-fg-muted);
+    flex: 1;
+  }
+
+  .date-card__cta {
+    margin-top: var(--space-2);
+    align-self: stretch;
+  }
+</style>

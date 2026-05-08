@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Alicante Bike Camp · Escuela Kesape MTB',
+  description = '3 días en los mejores spots de Alicante. Reseteamos tu técnica con el Método Kesape para que dejes de sobrevivir y empieces a pilotar.',
+  image = '/og-image.jpg',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://escuelakesape.com');
+const ogImage = new URL(image, Astro.site ?? 'https://escuelakesape.com');
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.toString()} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:image" content={ogImage.toString()} />
+    <meta property="og:site_name" content="Escuela Kesape" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.toString()} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600;1,700;1,900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#que-es" class="skip-link">Saltar al contenido</a>
+    <slot />
+    <style>
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--color-accent);
+        color: #000;
+        padding: 0.5rem 1rem;
+        z-index: 1000;
+        font-weight: 600;
+        border-radius: 0 0 var(--radius-md) 0;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+---
+// Footer · CTA final + referencia legal mínima.
+---
+
+<section id="reservar" class="cta-final">
+  <div class="container container-narrow cta-final__inner">
+    <h2>Todos ellos ya lo han conseguido.</h2>
+    <p class="cta-final__sub">¿Y tú? ¿A qué esperas?</p>
+    <a href="#fechas" class="btn btn-primary cta-final__btn">Elige tu fecha y reserva</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="muted">
+      © {new Date().getFullYear()} Escuela Kesape · MTB y BMX
+    </p>
+    <p class="muted footer__small">
+      Alicante Bike Camp · Hecho con cariño para riders que quieren dejar de
+      sobrevivir.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .cta-final {
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(74, 222, 42, 0.05) 100%);
+  }
+
+  .cta-final__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .cta-final h2 {
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .cta-final__sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-fg);
+    margin: 0;
+  }
+
+  .cta-final__btn {
+    margin-top: var(--space-4);
+    font-size: 1.1rem;
+    padding: 1.1rem 2.2rem;
+  }
+
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-8);
+  }
+
+  .footer__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .footer__small {
+    font-size: 0.85rem;
+  }
+</style>
