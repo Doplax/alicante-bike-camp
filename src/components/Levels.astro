@@ -1,30 +1,8 @@
 ---
 // Levels · "¿Es para ti?" + "¿Nivel?" del original.
 // TODO C-01: Kevin debe confirmar si son 2 grupos en práctica o 3.
-// Hasta que decida, mantengo los 3 perfiles para autoidentificación.
-const levels = [
-  {
-    n: 1,
-    name: 'El Rider con Base',
-    pitch: 'No eres nuevo, pero te falta el «clic».',
-    body:
-      'Sales por senderos, pero cuando la cosa se pone «sucia» (raíces, piedras o un escalón de más de 10 cm), tus dedos se clavan en el freno y te pones rígido como un palo. Tu bici es mejor que tu técnica y lo sabes. Aquí te enseñamos a dejar de bajarte de la bici en cada dificultad.',
-  },
-  {
-    n: 2,
-    name: 'El Intermedio (Buscando el Flow)',
-    pitch: 'Bajas por casi todos sitios, pero «sobreviviendo».',
-    body:
-      'Tienes fondo físico, pero acabas las rutas con los brazos destrozados de la tensión. No pilotas: eres un pasajero que espera que la suspensión lo arregle todo. Te falta esa fluidez para que la bici no se detenga en cada curva cerrada o zona técnica.',
-  },
-  {
-    n: 3,
-    name: 'El Intermedio-Alto (Domando el Terreno)',
-    pitch: 'Ya vas rápido, pero quieres precisión de cirujano.',
-    body:
-      'Saltas un poco, haces algún drop, pero sientes que te has estancado. Quieres aprender a leer el terreno como un pro, a ganar inercia donde otros frenan y a despegarte del suelo con la seguridad de que vas a aterrizar donde tú quieres.',
-  },
-];
+// Datos en src/data/levels.ts.
+import { levels } from '../data/levels';
 ---
 
 <section id="niveles" class="levels">
@@ -53,12 +31,17 @@ const levels = [
     </div>
 
     <div class="levels__grid">
-      {levels.map((level) => (
-        <article class="level-card">
-          <span class="level-card__num">Nivel {level.n}</span>
-          <h3>{level.name}</h3>
-          <p class="level-card__pitch">{level.pitch}</p>
-          <p class="level-card__body muted">{level.body}</p>
+      {levels.map((level, i) => (
+        <article class="level-card" data-reveal style={`--stagger-i: ${i};`}>
+          <div class="level-card__photo">
+            <img src={level.photo} alt={level.photoAlt} loading="lazy" decoding="async" />
+            <span class="level-card__num">Nivel {level.n}</span>
+          </div>
+          <div class="level-card__body-wrap">
+            <h3>{level.name}</h3>
+            <p class="level-card__pitch">{level.pitch}</p>
+            <p class="level-card__body muted">{level.body}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -129,7 +112,9 @@ const levels = [
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: var(--space-8);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     transition:
       border-color 0.25s ease,
       transform 0.25s ease,
@@ -141,15 +126,48 @@ const levels = [
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   }
 
+  .level-card__photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .level-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .level-card:hover .level-card__photo img {
+    transform: scale(1.04);
+  }
+  .level-card__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 10, 0.85) 100%);
+    pointer-events: none;
+  }
+
   .level-card__num {
-    display: inline-block;
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-6);
+    z-index: 1;
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-accent);
-    margin-bottom: var(--space-3);
+    background: rgba(10, 10, 10, 0.7);
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(74, 222, 42, 0.35);
+  }
+
+  .level-card__body-wrap {
+    padding: var(--space-6) var(--space-6) var(--space-8);
   }
 
   .level-card h3 {

@@ -1,0 +1,62 @@
+---
+// JSON-LD para que Google entienda cada edición como un EducationEvent
+// con fechas, lugar, organizador y oferta de precio. Mejora visibilidad
+// en resultados orgánicos. Importes/early bird se actualizarán cuando
+// Kevin confirme C-03.
+import { editions } from '../data/editions';
+
+const baseUrl = 'https://escuelakesape.com/alicante-bike-camp/';
+
+const events = editions.map((ed) => ({
+  '@context': 'https://schema.org',
+  '@type': 'EducationEvent',
+  name: `Alicante Bike Camp · ${ed.ldTitle}`,
+  description:
+    '3 días de formación técnica en MTB con Kevin Sánchez (3º del mundo BMX 2015) en los mejores spots de Alicante: Sabinar Bike Park, La Fenasosa Bike Park y ruta natural.',
+  startDate: ed.startDate,
+  endDate: ed.endDate,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: {
+    '@type': 'Place',
+    name: 'La Fenasosa Bike Park',
+    address: {
+      '@type': 'PostalAddress',
+      addressRegion: 'Alicante',
+      addressCountry: 'ES',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: 'Escuela Kesape',
+    url: 'https://escuelakesape.com',
+  },
+  performer: {
+    '@type': 'Person',
+    name: 'Kevin Sánchez',
+  },
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Solo Camp',
+      price: '375',
+      priceCurrency: 'EUR',
+      url: baseUrl,
+      availability: 'https://schema.org/InStock',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Todo Incluido',
+      price: '690',
+      priceCurrency: 'EUR',
+      url: baseUrl,
+      availability: 'https://schema.org/InStock',
+    },
+  ],
+  image: 'https://escuelakesape.com/wp-content/uploads/2024/08/clases-mtb.jpg',
+}));
+---
+
+{events.map((event) => (
+  <script type="application/ld+json" set:html={JSON.stringify(event)} />
+))}

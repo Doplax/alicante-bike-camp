@@ -1,0 +1,150 @@
+---
+// Testimonials · 12 shorts de YouTube extraídos de la landing original.
+// Click → abre el short en YouTube (los embeds 9:16 renderizan mal el chrome
+// del player de YouTube, mejor experiencia nativa en YouTube).
+// Datos en src/data/testimonials.ts.
+import { testimonialShorts as shorts } from '../data/testimonials';
+---
+
+<section id="testimonios" class="testimonials">
+  <div class="container">
+    <header class="testimonials__head">
+      <span class="eyebrow">Quienes ya pasaron por aquí</span>
+      <h2>Todos ellos ya lo han conseguido. ¿Y tú?</h2>
+      <p class="muted">
+        12 testimonios reales de riders que vinieron al camp. Toca cualquiera para reproducir.
+      </p>
+    </header>
+
+    <div class="testimonials__grid">
+      {shorts.map((id, i) => (
+        <a
+          class="short-card"
+          href={`https://www.youtube.com/shorts/${id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver testimonio ${i + 1} en YouTube Shorts`}
+          data-reveal
+          style={`--stagger-i: ${Math.min(i, 7)};`}
+        >
+          <img
+            class="short-card__thumb"
+            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width="480"
+            height="360"
+          />
+          <span class="short-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+              {/* Vertical rounded rectangle (phone-like frame) + play triangle = «Shorts» */}
+              <rect
+                x="6"
+                y="2"
+                width="12"
+                height="20"
+                rx="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10.5 8.2 L15.5 12 L10.5 15.8 Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__head {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .testimonials__head .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+  .testimonials__head h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+  @media (min-width: 980px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .short-card {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .short-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  .short-card__thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  }
+  .short-card:hover .short-card__thumb {
+    transform: scale(1.04);
+    filter: brightness(0.78);
+  }
+
+  .short-card__icon {
+    position: relative;
+    z-index: 1;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.72);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.25s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+  .short-card:hover .short-card__icon {
+    transform: scale(1.1);
+    background: var(--color-accent);
+    color: #0a0a0a;
+  }
+</style>

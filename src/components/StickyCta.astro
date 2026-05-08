@@ -1,0 +1,104 @@
+---
+// Sticky CTA · pill flotante que aparece cuando el hero deja de estar
+// en viewport. IntersectionObserver con threshold 0 sobre .hero.
+---
+
+<a
+  href="#fechas"
+  class="sticky-cta"
+  aria-label="Reserva tu plaza"
+  data-sticky-cta
+>
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <path
+      d="M5 12h12m0 0l-5-5m5 5l-5 5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <span class="sticky-cta__text">Reserva tu plaza</span>
+</a>
+
+<script>
+  const cta = document.querySelector('[data-sticky-cta]');
+  const hero = document.querySelector('.hero');
+  if (cta instanceof HTMLElement && hero) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          cta.classList.toggle('sticky-cta--visible', !entry.isIntersecting);
+        });
+      },
+      { threshold: 0, rootMargin: '-80px 0px 0px 0px' },
+    );
+    obs.observe(hero);
+  }
+</script>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.5rem;
+    background: var(--color-accent);
+    color: #0a0a0a;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    box-shadow: 0 12px 32px rgba(74, 222, 42, 0.32),
+      0 4px 12px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.2s ease;
+  }
+
+  .sticky-cta--visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .sticky-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: var(--color-accent-strong);
+    opacity: 1;
+  }
+
+  @media (max-width: 480px) {
+    .sticky-cta {
+      bottom: 16px;
+      right: 16px;
+      padding: 0.85rem 1.1rem;
+    }
+    .sticky-cta__text {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: opacity 0.2s ease;
+      transform: none;
+    }
+    .sticky-cta--visible {
+      transform: none;
+    }
+    .sticky-cta:hover {
+      transform: none;
+    }
+  }
+</style>

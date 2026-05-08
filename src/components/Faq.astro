@@ -1,24 +1,8 @@
 ---
-// FAQ · 3 preguntas del original con T-04 corregido.
-// La pregunta "¿Sirve para cualquier nivel?" se reformula para evitar contradecir
-// la sección Levels, en línea con la nota al pie de Levels.astro.
-const faqs = [
-  {
-    q: '¿Sirve para cualquier nivel?',
-    a:
-      'No es para todos los niveles, pero sí para la mayoría. Trabajaremos en grupos según se forme la convocatoria (habitualmente 2 grupos: Kevin y Carlos como monitores, turnándonos). Si tienes dudas con tu nivel, escríbeme y lo vemos juntos.',
-  },
-  {
-    q: '¿Y si nunca he ido a un bikepark?',
-    a:
-      'Perfecto, esta es la mejor ocasión: yo lo conozco a fondo y te guiaré en todo momento. Descubrirás uno de los mejores bikeparks de Europa.',
-  },
-  {
-    q: '¿Puedo ir solo/a?',
-    a:
-      '¡Claro! La mayoría de riders vienen solos. El ambiente de grupo es top y acabarás haciendo amigos para futuras rutas. Si vienes acompañado tenéis descuento de pareja (ver bloque de precios arriba).',
-  },
-];
+// FAQ · datos en src/data/faqs.ts.
+// Incluye C-05 (aclara monte vs bikepark) y O-05 (4 preguntas logísticas
+// con respuestas seguras + TODO Kevin para confirmar detalles).
+import { faqs } from '../data/faqs';
 ---
 
 <section id="faq" class="faq">

@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Página no encontrada · Alicante Bike Camp"
+  description="La página que buscas no existe. Vuelve al Alicante Bike Camp."
+  showStructuredData={false}
+  showStickyCta={false}
+>
+  <section class="not-found">
+    <div class="container container-narrow not-found__inner">
+      <span class="eyebrow">Error 404</span>
+      <h1>Te has bajado de la bici en una curva.</h1>
+      <p class="muted">
+        La página que buscas no existe — o se la ha llevado un derrape.
+      </p>
+      <div class="not-found__cta">
+        <a href="/" class="btn btn-primary">Volver al camp</a>
+        <a href="/#fechas" class="btn btn-ghost">Ver fechas</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .not-found__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  .not-found h1 {
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .not-found p {
+    font-size: 1.1rem;
+    max-width: 480px;
+  }
+  .not-found__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+</style>

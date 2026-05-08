@@ -1,36 +1,8 @@
 ---
 // Dates · sustituye el párrafo confuso del hero original (mejora C-04).
-// 3 ediciones como cards con su propio estado de plazas.
+// Datos en src/data/editions.ts.
 // TODO Kevin: confirmar plazas restantes reales por edición.
-const editions = [
-  {
-    id: 'mayo',
-    month: 'Mayo',
-    days: '29 · 30 · 31',
-    year: '2026',
-    note: '3 días · Sabinar + La Fenasosa + Ruta',
-    status: 'urgent',
-    statusLabel: 'Pocas plazas',
-  },
-  {
-    id: 'julio',
-    month: 'Julio',
-    days: '10 · 11 · 12',
-    year: '2026',
-    note: 'Edición especial · 2 días en La Fenasosa',
-    status: 'open',
-    statusLabel: 'Plazas disponibles',
-  },
-  {
-    id: 'septiembre',
-    month: 'Septiembre',
-    days: '18 · 19 · 20',
-    year: '2026',
-    note: '3 días · Sabinar + La Fenasosa + Ruta',
-    status: 'open',
-    statusLabel: 'Plazas disponibles',
-  },
-];
+import { editions } from '../data/editions';
 ---
 
 <section id="fechas" class="dates">
@@ -41,8 +13,12 @@ const editions = [
     </header>
 
     <div class="dates__grid">
-      {editions.map((edition) => (
-        <article class={`date-card date-card--${edition.status}`}>
+      {editions.map((edition, i) => (
+        <article
+          class={`date-card date-card--${edition.status}`}
+          data-reveal
+          style={`--stagger-i: ${i};`}
+        >
           <span class="date-card__status">{edition.statusLabel}</span>
           <h3 class="date-card__month">{edition.month}</h3>
           <p class="date-card__days">{edition.days}</p>
