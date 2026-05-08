@@ -38,8 +38,7 @@ export const days: Day[] = [
     weekday: 'Sábado',
     location: 'La Fenasosa Bike Park',
     schedule: '10:00–14:00 + 16:00–19:00 (tarde opcional)',
-    photo: '/images/la-fenasosa.jpeg',
-    photoAlt: 'La Fenasosa Bike Park · La Nucía, Alicante',
+    photo: null,
     pitch:
       'El bike park de referencia en España. Aquí ocurre el «clic». Si no fluyes en 20 cm, no saltamos medio metro: progresión real, sin presiones absurdas.',
     skills: [

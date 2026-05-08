@@ -1,7 +1,6 @@
 ---
 // Testimonials · 12 shorts de YouTube extraídos de la landing original.
-// Click → abre el short en YouTube (los embeds 9:16 renderizan mal el chrome
-// del player de YouTube, mejor experiencia nativa en YouTube).
+// Click → abre el short en un modal con iframe embebido (sin salir del sitio).
 // Datos en src/data/testimonials.ts.
 import { testimonialShorts as shorts } from '../data/testimonials';
 ---
@@ -18,12 +17,11 @@ import { testimonialShorts as shorts } from '../data/testimonials';
 
     <div class="testimonials__grid">
       {shorts.map((id, i) => (
-        <a
+        <button
+          type="button"
           class="short-card"
-          href={`https://www.youtube.com/shorts/${id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Ver testimonio ${i + 1} en YouTube Shorts`}
+          data-short-id={id}
+          aria-label={`Reproducir testimonio ${i + 1}`}
           data-reveal
           style={`--stagger-i: ${Math.min(i, 7)};`}
         >
@@ -38,7 +36,6 @@ import { testimonialShorts as shorts } from '../data/testimonials';
           />
           <span class="short-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
-              {/* Vertical rounded rectangle (phone-like frame) + play triangle = «Shorts» */}
               <rect
                 x="6"
                 y="2"
@@ -56,11 +53,81 @@ import { testimonialShorts as shorts } from '../data/testimonials';
               />
             </svg>
           </span>
-        </a>
+        </button>
       ))}
     </div>
   </div>
+
+  <div
+    class="short-modal"
+    data-short-modal
+    role="dialog"
+    aria-modal="true"
+    aria-label="Reproductor de testimonio"
+    hidden
+  >
+    <div class="short-modal__backdrop" data-short-close></div>
+    <div class="short-modal__panel">
+      <button
+        type="button"
+        class="short-modal__close"
+        data-short-close
+        aria-label="Cerrar reproductor"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M6 6l12 12M18 6L6 18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+      <div class="short-modal__frame" data-short-frame></div>
+    </div>
+  </div>
 </section>
+
+<script>
+  const modal = document.querySelector<HTMLElement>('[data-short-modal]');
+  const frame = document.querySelector<HTMLElement>('[data-short-frame]');
+  const cards = document.querySelectorAll<HTMLButtonElement>('.short-card');
+
+  function openModal(id: string) {
+    if (!modal || !frame) return;
+    frame.innerHTML = `<iframe
+      src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1"
+      title="Testimonio"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>`;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal || !frame) return;
+    modal.hidden = true;
+    frame.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.shortId;
+      if (id) openModal(id);
+    });
+  });
+
+  document.querySelectorAll('[data-short-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+</script>
 
 <style>
   .testimonials__head {
@@ -105,6 +172,10 @@ import { testimonialShorts as shorts } from '../data/testimonials';
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    color: inherit;
     transition: border-color 0.25s ease, transform 0.25s ease;
   }
   .short-card:hover {
@@ -146,5 +217,67 @@ import { testimonialShorts as shorts } from '../data/testimonials';
     transform: scale(1.1);
     background: var(--color-accent);
     color: #0a0a0a;
+  }
+
+  .short-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+  }
+  .short-modal[hidden] { display: none; }
+
+  .short-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .short-modal__panel {
+    position: relative;
+    width: min(420px, 100%);
+    aspect-ratio: 9 / 16;
+    max-height: calc(100vh - var(--space-8));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  }
+
+  .short-modal__frame,
+  .short-modal__frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .short-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(10, 10, 10, 0.72);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .short-modal__close:hover {
+    background: var(--color-accent);
+    color: #0a0a0a;
+    transform: scale(1.05);
   }
 </style>
